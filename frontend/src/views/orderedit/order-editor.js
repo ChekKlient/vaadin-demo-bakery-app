@@ -62,6 +62,8 @@ class OrderEditor extends window.ScrollShadowMixin(PolymerElement) {
           <vaadin-combo-box id="capex" colspan="2">
             <iron-icon slot="prefix" icon="vaadin:at"></iron-icon>
           </vaadin-combo-box>
+        <vaadin-integer-field id="sum" colspan="4" index="[[index]]" class="self-start"
+          min="1" max="15" has-controls prevent-invalid-input></vaadin-integer-field>
         </vaadin-form-layout>
 
         <vaadin-form-layout id="form3" colspan="3">
