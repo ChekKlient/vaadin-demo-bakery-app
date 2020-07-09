@@ -53,7 +53,12 @@ public class Order extends AbstractEntity implements OrderSummary {
 	@ManyToOne
 	private PickupLocation pickupLocation;
 
-	@NotNull
+	@ManyToOne
+	private Capex capex;
+
+	@ManyToOne
+	private CapexAdd capexAdd;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Customer customer;
 
@@ -161,8 +166,8 @@ public class Order extends AbstractEntity implements OrderSummary {
 
 	@Override
 	public String toString() {
-		return "Order{" + "dueDate=" + dueDate + ", dueTime=" + dueTime + ", pickupLocation=" + pickupLocation
-				+ ", customer=" + customer + ", items=" + items + ", state=" + state + '}';
+		return "Order{" + "dueDate=" + dueDate + ", pickupLocation=" + pickupLocation + ", capex=" + capex
+				+ ", capexAdd=" + capexAdd + ", items=" + items + ", state=" + state + '}';
 	}
 
 	@Override

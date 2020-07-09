@@ -33,10 +33,9 @@ import com.kiroule.vaadin.bakeryapp.backend.repositories.UserRepository;
 @SpringComponent
 public class DataGenerator implements HasLogger {
 
-	private static final String[] FILLING = new String[] { "Strawberry", "Chocolate", "Blueberry", "Raspberry",
+	private static final String[] FILLING = new String[] { "Колесо", "ДП", "Азот", "Ми7",
 			"Vanilla" };
-	private static final String[] TYPE = new String[] { "Cake", "Pastry", "Tart", "Muffin", "Biscuit", "Bread", "Bagel",
-			"Bun", "Brownie", "Cookie", "Cracker", "Cheese Cake" };
+	private static final String[] TYPE = new String[] { "Запчастини", "Добрива", "Мікродобрива", "Пестициди", "Паливо"};
 	private static final String[] FIRST_NAME = new String[] { "Ori", "Amanda", "Octavia", "Laurel", "Lael", "Delilah",
 			"Jason", "Skyler", "Arsenio", "Haley", "Lionel", "Sylvia", "Jessica", "Lester", "Ferdinand", "Elaine",
 			"Griffin", "Kerry", "Dominique" };

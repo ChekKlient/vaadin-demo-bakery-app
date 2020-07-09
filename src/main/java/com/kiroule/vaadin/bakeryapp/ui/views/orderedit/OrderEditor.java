@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import com.kiroule.vaadin.bakeryapp.backend.data.entity.*;
+import com.kiroule.vaadin.bakeryapp.backend.service.CapexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -36,11 +38,8 @@ import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.kiroule.vaadin.bakeryapp.backend.data.OrderState;
-import com.kiroule.vaadin.bakeryapp.backend.data.entity.Order;
-import com.kiroule.vaadin.bakeryapp.backend.data.entity.PickupLocation;
-import com.kiroule.vaadin.bakeryapp.backend.data.entity.Product;
-import com.kiroule.vaadin.bakeryapp.backend.data.entity.User;
 import com.kiroule.vaadin.bakeryapp.backend.service.PickupLocationService;
+import com.kiroule.vaadin.bakeryapp.backend.service.CapexService;
 import com.kiroule.vaadin.bakeryapp.backend.service.ProductService;
 import com.kiroule.vaadin.bakeryapp.ui.crud.CrudEntityDataProvider;
 import com.kiroule.vaadin.bakeryapp.ui.dataproviders.DataProviderUtil;
@@ -86,6 +85,9 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 	@Id("customerName")
 	private TextField customerName;
 
+	@Id("capex")
+	private ComboBox<Capex> capex;
+
 	@Id("customerNumber")
 	private TextField customerNumber;
 
@@ -110,8 +112,9 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 	private final LocalTimeConverter localTimeConverter = new LocalTimeConverter();
 
 	@Autowired
-	public OrderEditor(PickupLocationService locationService, ProductService productService) {
+	public OrderEditor(PickupLocationService locationService, ProductService productService, CapexService capexService) {
 		DataProvider<PickupLocation, String> locationDataProvider = new CrudEntityDataProvider<>(locationService);
+		DataProvider<Capex, String> capexDataProvider = new CrudEntityDataProvider<>(capexService);
 		DataProvider<Product, String> productDataProvider = new CrudEntityDataProvider<>(productService);
 		itemsEditor = new OrderItemsEditor(productDataProvider);
 
@@ -143,6 +146,11 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 		pickupLocation.setDataProvider(locationDataProvider);
 		binder.bind(pickupLocation, "pickupLocation");
 		pickupLocation.setRequired(false);
+
+		capex.setItemLabelGenerator(createItemLabelGenerator(Capex::getName));
+		capex.setDataProvider(capexDataProvider);
+		binder.bind(capex, "capex");
+		capex.setRequired(false);
 
 		customerName.setRequired(true);
 		binder.bind(customerName, "customer.fullName");

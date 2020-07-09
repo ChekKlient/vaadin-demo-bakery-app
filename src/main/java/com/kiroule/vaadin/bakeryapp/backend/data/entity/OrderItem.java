@@ -17,6 +17,19 @@ public class OrderItem extends AbstractEntity {
 	@NotNull
 	private Integer quantity = 1;
 
+	public Integer getSum() {
+		return sum;
+	}
+
+	public void setSum(Integer sum) {
+		this.sum = sum;
+	}
+
+	@Min(1)
+	@NotNull
+	private Integer sum = 1;
+
+
 	@Size(max = 255)
 	private String comment;
 
@@ -44,7 +57,8 @@ public class OrderItem extends AbstractEntity {
 		this.comment = comment;
 	}
 
-	public int getTotalPrice() {
-		return quantity == null || product == null ? 0 : quantity * product.getPrice();
+	public Integer getTotalPrice() {
+		return sum;
+		//return quantity == null || product == null ? 0 : quantity * product.getPrice();
 	}
 }
