@@ -15,18 +15,18 @@ import java.util.Optional;
 @Service
 public class CapexService implements FilterableCrudService<Capex> {
 
-	private final CapexRepository productRepository;
+	private final CapexRepository capexRepository;
 
 	@Autowired
-	public CapexService(CapexRepository productRepository) {
-		this.productRepository = productRepository;
+	public CapexService(CapexRepository capexRepository) {
+		this.capexRepository = capexRepository;
 	}
 
 	@Override
 	public Page<Capex> findAnyMatching(Optional<String> filter, Pageable pageable) {
 		if (filter.isPresent()) {
 			String repositoryFilter = "%" + filter.get() + "%";
-			return productRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
+			return capexRepository.findByNameLikeIgnoreCase(repositoryFilter, pageable);
 		} else {
 			return find(pageable);
 		}
@@ -36,19 +36,19 @@ public class CapexService implements FilterableCrudService<Capex> {
 	public long countAnyMatching(Optional<String> filter) {
 		if (filter.isPresent()) {
 			String repositoryFilter = "%" + filter.get() + "%";
-			return productRepository.countByNameLikeIgnoreCase(repositoryFilter);
+			return capexRepository.countByNameLikeIgnoreCase(repositoryFilter);
 		} else {
 			return count();
 		}
 	}
 
 	public Page<Capex> find(Pageable pageable) {
-		return productRepository.findBy(pageable);
+		return capexRepository.findBy(pageable);
 	}
 
 	@Override
 	public JpaRepository<Capex, Long> getRepository() {
-		return productRepository;
+		return capexRepository;
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class CapexService implements FilterableCrudService<Capex> {
 			return FilterableCrudService.super.save(currentUser, entity);
 		} catch (DataIntegrityViolationException e) {
 			throw new UserFriendlyDataException(
-					"There is already a product with that name. Please select a unique name for the product.");
+					"There is already a capex with that name. Please select a unique name for the capex.");
 		}
 
 	}

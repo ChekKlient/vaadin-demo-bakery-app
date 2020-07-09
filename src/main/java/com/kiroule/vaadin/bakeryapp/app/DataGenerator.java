@@ -12,6 +12,7 @@ import java.util.function.Supplier;
 
 import javax.annotation.PostConstruct;
 
+import com.kiroule.vaadin.bakeryapp.backend.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -25,17 +26,14 @@ import com.kiroule.vaadin.bakeryapp.backend.data.entity.OrderItem;
 import com.kiroule.vaadin.bakeryapp.backend.data.entity.PickupLocation;
 import com.kiroule.vaadin.bakeryapp.backend.data.entity.Product;
 import com.kiroule.vaadin.bakeryapp.backend.data.entity.User;
-import com.kiroule.vaadin.bakeryapp.backend.repositories.OrderRepository;
-import com.kiroule.vaadin.bakeryapp.backend.repositories.PickupLocationRepository;
-import com.kiroule.vaadin.bakeryapp.backend.repositories.ProductRepository;
-import com.kiroule.vaadin.bakeryapp.backend.repositories.UserRepository;
 
 @SpringComponent
 public class DataGenerator implements HasLogger {
 
-	private static final String[] FILLING = new String[] { "Колесо", "ДП", "Азот", "Ми7",
+	private static final String[] FILLING = new String[] { "Strawberry", "Chocolate", "Blueberry", "Raspberry",
 			"Vanilla" };
-	private static final String[] TYPE = new String[] { "Запчастини", "Добрива", "Мікродобрива", "Пестициди", "Паливо"};
+	private static final String[] TYPE = new String[] { "Cake", "Pastry", "Tart", "Muffin", "Biscuit", "Bread", "Bagel",
+			"Bun", "Brownie", "Cookie", "Cracker", "Cheese Cake" };
 	private static final String[] FIRST_NAME = new String[] { "Ori", "Amanda", "Octavia", "Laurel", "Lael", "Delilah",
 			"Jason", "Skyler", "Arsenio", "Haley", "Lionel", "Sylvia", "Jessica", "Lester", "Ferdinand", "Elaine",
 			"Griffin", "Kerry", "Dominique" };
@@ -49,17 +47,19 @@ public class DataGenerator implements HasLogger {
 	private OrderRepository orderRepository;
 	private UserRepository userRepository;
 	private ProductRepository productRepository;
+	private CapexRepository capexRepository;
 	private PickupLocationRepository pickupLocationRepository;
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	public DataGenerator(OrderRepository orderRepository, UserRepository userRepository,
-			ProductRepository productRepository, PickupLocationRepository pickupLocationRepository,
+			ProductRepository productRepository, PickupLocationRepository pickupLocationRepository, CapexRepository capexRepository,
 			PasswordEncoder passwordEncoder) {
 		this.orderRepository = orderRepository;
 		this.userRepository = userRepository;
 		this.productRepository = productRepository;
 		this.pickupLocationRepository = pickupLocationRepository;
+		this.capexRepository = capexRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 

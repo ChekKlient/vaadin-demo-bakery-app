@@ -1,15 +1,10 @@
 package com.kiroule.vaadin.bakeryapp.ui;
 
-import static com.kiroule.vaadin.bakeryapp.ui.utils.BakeryConst.TITLE_DASHBOARD;
-import static com.kiroule.vaadin.bakeryapp.ui.utils.BakeryConst.TITLE_LOGOUT;
-import static com.kiroule.vaadin.bakeryapp.ui.utils.BakeryConst.TITLE_PRODUCTS;
-import static com.kiroule.vaadin.bakeryapp.ui.utils.BakeryConst.TITLE_STOREFRONT;
-import static com.kiroule.vaadin.bakeryapp.ui.utils.BakeryConst.TITLE_USERS;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.kiroule.vaadin.bakeryapp.ui.views.admin.capex.CapexView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -27,8 +22,9 @@ import com.kiroule.vaadin.bakeryapp.app.security.SecurityUtils;
 import com.kiroule.vaadin.bakeryapp.ui.views.HasConfirmation;
 import com.kiroule.vaadin.bakeryapp.ui.views.admin.products.ProductsView;
 import com.kiroule.vaadin.bakeryapp.ui.views.admin.users.UsersView;
-import com.kiroule.vaadin.bakeryapp.ui.views.dashboard.DashboardView;
 import com.kiroule.vaadin.bakeryapp.ui.views.storefront.StorefrontView;
+
+import static com.kiroule.vaadin.bakeryapp.ui.utils.BakeryConst.*;
 
 public class MainView extends AppLayout {
 
@@ -90,12 +86,14 @@ public class MainView extends AppLayout {
 		final List<Tab> tabs = new ArrayList<>(4);
 		tabs.add(createTab(VaadinIcon.EDIT, TITLE_STOREFRONT,
 						StorefrontView.class));
-		tabs.add(createTab(VaadinIcon.CLOCK,TITLE_DASHBOARD, DashboardView.class));
 		if (SecurityUtils.isAccessGranted(UsersView.class)) {
 			tabs.add(createTab(VaadinIcon.USER,TITLE_USERS, UsersView.class));
 		}
 		if (SecurityUtils.isAccessGranted(ProductsView.class)) {
 			tabs.add(createTab(VaadinIcon.CALENDAR, TITLE_PRODUCTS, ProductsView.class));
+		}
+		if (SecurityUtils.isAccessGranted(ProductsView.class)) {
+			tabs.add(createTab(VaadinIcon.CALENDAR, TITLE_CAPEX, CapexView.class));
 		}
 		final String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
 		final Tab logoutTab = createTab(createLogoutLink(contextPath));

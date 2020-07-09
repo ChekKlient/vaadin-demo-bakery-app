@@ -30,10 +30,12 @@ import com.kiroule.vaadin.bakeryapp.backend.data.OrderState;
 @Entity(name = "OrderInfo") // "Order" is a reserved word
 @NamedEntityGraphs({@NamedEntityGraph(name = Order.ENTITY_GRAPTH_BRIEF, attributeNodes = {
 		@NamedAttributeNode("customer"),
-		@NamedAttributeNode("pickupLocation")
+		@NamedAttributeNode("pickupLocation"),
+		@NamedAttributeNode("capex")
 }),@NamedEntityGraph(name = Order.ENTITY_GRAPTH_FULL, attributeNodes = {
 		@NamedAttributeNode("customer"),
 		@NamedAttributeNode("pickupLocation"),
+		@NamedAttributeNode("capex"),
 		@NamedAttributeNode("items"),
 		@NamedAttributeNode("history")
 })})
@@ -114,6 +116,22 @@ public class Order extends AbstractEntity implements OrderSummary {
 
 	public void setDueTime(LocalTime dueTime) {
 		this.dueTime = dueTime;
+	}
+
+	public Capex getCapex() {
+		return capex;
+	}
+
+	public void setCapex(Capex capex) {
+		this.capex = capex;
+	}
+
+	public CapexAdd getCapexAdd() {
+		return capexAdd;
+	}
+
+	public void setCapexAdd(CapexAdd capexAdd) {
+		this.capexAdd = capexAdd;
 	}
 
 	@Override
